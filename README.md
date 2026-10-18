@@ -217,6 +217,8 @@ NammaTrip AI aims to make Karnataka tourism easier to explore while promoting Ka
 
 The project encourages travelers to discover local destinations, respect cultural practices, and travel responsibly.
 
+🔗 Live demo:
+
 ## 👩‍💻 Developer
 
 **GitHub:** [smiling-coder](https://github.com/smiling-coder)
