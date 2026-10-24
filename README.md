@@ -5,7 +5,7 @@
 **Tagline:** Your Budget. Your Journey. Your Karnataka. ❤️
 
 
-🔗 Live demo: https://smiling-coder.github.io/NammaTripAI/
+🔗 Live demo: http://smiling-coder.github.io/NammaTripAI/
 
 NammaTrip AI is a Karnataka-focused travel-planning web application designed to help travelers discover destinations and create personalized itineraries based on their budget, travel duration, interests, and language preference.
 
