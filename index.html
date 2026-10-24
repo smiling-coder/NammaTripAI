@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NammaTrip AI - Plan your Karnataka journey</title>
+  <meta name="description" content="NammaTrip AI is a bilingual (Kannada and English), budget-aware Karnataka trip planner. Prototype with a transparent rule-based engine.">
+  <meta name="theme-color" content="#0F3D2E">
+
+  <!-- Fonts load from Google Fonts. If the internet is down, the fallback fonts in style.css take over. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&family=Noto+Sans+Kannada:wght@400;500;700&family=Noto+Serif+Kannada:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to main content</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header no-print" id="site-header">
+    <a class="brand" href="#top" aria-label="NammaTrip AI">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <rect width="32" height="32" rx="7" fill="#0F3D2E"/>
+        <path d="M6 23 L12 13 L17 19 L21 12 L26 23 Z" fill="#B9C9AE"/>
+        <circle cx="23" cy="9" r="3" fill="#C49A3C"/>
+      </svg>
+      <span class="brand-name">NammaTrip <span class="brand-ai">AI</span></span>
+    </a>
+
+    <nav class="nav" id="primary-nav" aria-label="Main">
+      <a href="#explore" data-i18n="nav_explore">Destinations</a>
+      <a href="#planner" data-i18n="nav_plan">Plan a trip</a>
+      <a href="#culture" data-i18n="nav_culture">Culture</a>
+      <a href="#about" data-i18n="nav_about">How it works</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="lang-toggle" id="lang-toggle" type="button">
+        <span data-i18n="lang_btn">ಕನ್ನಡ</span>
+      </button>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+        <span class="menu-bars" aria-hidden="true"></span>
+        <span class="visually-hidden" data-i18n="menu">Menu</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero no-print" id="top" aria-labelledby="hero-title">
+      <svg class="hero-art" viewBox="0 0 1440 700" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#F8F3E6"/>
+            <stop offset="0.5" stop-color="#F4E2C4"/>
+            <stop offset="1" stop-color="#E8B98E"/>
+          </linearGradient>
+        </defs>
+        <rect width="1440" height="700" fill="url(#skyGrad)"/>
+        <circle class="sun" cx="1120" cy="250" r="74" fill="#D9A441" opacity="0.8"/>
+
+        <g class="cloud cloud-a" fill="#FFFFFF" opacity="0.7">
+          <ellipse cx="260" cy="150" rx="70" ry="18"/><ellipse cx="305" cy="138" rx="46" ry="18"/>
+        </g>
+        <g class="cloud cloud-b" fill="#FFFFFF" opacity="0.55">
+          <ellipse cx="820" cy="110" rx="84" ry="16"/><ellipse cx="865" cy="98" rx="50" ry="16"/>
+        </g>
+
+        <!-- Each layer moves a little differently for a gentle parallax effect -->
+        <g class="layer layer-far">
+          <path d="M0 470 C150 400 300 430 460 400 S760 380 900 410 S1260 380 1440 420 V700 H0Z" fill="#BFD0B5"/>
+        </g>
+
+        <g class="layer layer-mid">
+          <!-- A stepped, Hoysala-inspired temple tower -->
+          <g fill="#2F5E48">
+            <rect x="300" y="505" width="160" height="40"/>
+            <rect x="312" y="475" width="136" height="30"/>
+            <rect x="324" y="445" width="112" height="30"/>
+            <rect x="336" y="415" width="88" height="30"/>
+            <rect x="348" y="385" width="64" height="30"/>
+            <rect x="360" y="358" width="40" height="27"/>
+            <rect x="372" y="336" width="16" height="22"/>
+            <circle cx="380" cy="328" r="7"/>
+          </g>
+          <path d="M0 520 C200 470 380 520 560 500 S900 450 1100 490 S1340 470 1440 500 V700 H0Z" fill="#5E8C6A"/>
+        </g>
+
+        <g class="layer layer-near">
+          <path d="M0 590 C220 540 420 590 640 560 S1000 530 1200 570 S1380 560 1440 580 V700 H0Z" fill="#216B4E"/>
+          <path d="M0 650 C300 620 600 660 900 640 S1300 620 1440 650 V700 H0Z" fill="#0F3D2E"/>
+        </g>
+
+        <!-- Animated route across the hills with floating location pins -->
+        <path class="hero-route" d="M200 590 C300 520 460 600 620 540 C760 490 820 430 960 450 C1080 468 1160 520 1260 480"
+              fill="none" stroke="#F8F3E6" stroke-width="4" stroke-linecap="round" stroke-dasharray="3 14"/>
+
+        <g class="pin pin-1" transform="translate(200 590)">
+          <g class="pin-float">
+            <path d="M0 0 C-10 -14 -14 -22 -14 -28 a14 14 0 1 1 28 0 C14 -22 10 -14 0 0Z" fill="#B9532F"/>
+            <circle cy="-28" r="5" fill="#F8F3E6"/>
+          </g>
+          <text class="pin-label" y="24" text-anchor="middle" data-dest-name="mysuru">Mysuru</text>
+        </g>
+        <g class="pin pin-2" transform="translate(620 540)">
+          <g class="pin-float">
+            <path d="M0 0 C-10 -14 -14 -22 -14 -28 a14 14 0 1 1 28 0 C14 -22 10 -14 0 0Z" fill="#B9532F"/>
+            <circle cy="-28" r="5" fill="#F8F3E6"/>
+          </g>
+          <text class="pin-label" y="24" text-anchor="middle" data-dest-name="hampi">Hampi</text>
+        </g>
+        <g class="pin pin-3" transform="translate(960 450)">
+          <g class="pin-float">
+            <path d="M0 0 C-10 -14 -14 -22 -14 -28 a14 14 0 1 1 28 0 C14 -22 10 -14 0 0Z" fill="#B9532F"/>
+            <circle cy="-28" r="5" fill="#F8F3E6"/>
+          </g>
+          <text class="pin-label" y="24" text-anchor="middle" data-dest-name="jog">Jog Falls</text>
+        </g>
+        <g class="pin pin-4" transform="translate(1260 480)">
+          <g class="pin-float">
+            <path d="M0 0 C-10 -14 -14 -22 -14 -28 a14 14 0 1 1 28 0 C14 -22 10 -14 0 0Z" fill="#B9532F"/>
+            <circle cy="-28" r="5" fill="#F8F3E6"/>
+          </g>
+          <text class="pin-label" y="24" text-anchor="middle" data-dest-name="gokarna">Gokarna</text>
+        </g>
+      </svg>
+
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="hero-kicker" data-i18n="hero_kicker">A prototype for the Kannada Digital Innovation Hackathon 2026</p>
+          <h1 id="hero-title" data-i18n="hero_title">Small plans. Big memories.</h1>
+          <p class="hero-tagline" data-i18n="hero_tagline">Your Budget. Your Journey. Your Karnataka.</p>
+          <p class="hero-sub" data-i18n="hero_sub">Tell us your budget, days and interests. NammaTrip AI builds a day-by-day Karnataka plan in Kannada or English, with every cost clearly marked as an estimate.</p>
+          <div class="hero-cta">
+            <a class="btn btn-accent btn-lg" href="#planner" data-i18n="cta_plan">Plan my journey</a>
+            <a class="btn btn-ghost-dark btn-lg" href="#explore" data-i18n="cta_explore">Explore destinations</a>
+          </div>
+          <ul class="hero-points">
+            <li data-i18n="stat_dest">13 curated destinations</li>
+            <li data-i18n="stat_lang">Kannada and English</li>
+            <li data-i18n="stat_key">Works without an API key</li>
+            <li data-i18n="stat_open">Open, explainable logic</li>
+          </ul>
+        </div>
+
+        <form class="quick-card" id="quick-form" aria-labelledby="quick-title">
+          <h2 id="quick-title" data-i18n="quick_title">Quick plan</h2>
+          <p class="quick-note" data-i18n="quick_note">Fills the full planner for you.</p>
+          <label class="field">
+            <span class="field-label" data-i18n="f_start">Starting city</span>
+            <select id="quick-city"></select>
+          </label>
+          <div class="field-row">
+            <label class="field">
+              <span class="field-label" data-i18n="f_days">Number of days</span>
+              <input id="quick-days" type="number" min="1" max="14" step="1" value="4" inputmode="numeric">
+            </label>
+            <label class="field">
+              <span class="field-label" data-i18n="f_budget">Total budget (₹)</span>
+              <input id="quick-budget" type="number" min="2000" max="1000000" step="500" value="25000" inputmode="numeric">
+            </label>
+          </div>
+          <button class="btn btn-primary btn-block" type="submit" data-i18n="cta_plan">Plan my journey</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ EXPLORE ============ -->
+    <section class="section no-print" id="explore" aria-labelledby="explore-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="explore-title" data-i18n="explore_title">Thirteen places, one state</h2>
+          <p data-i18n="explore_sub">Browse, filter, and open a card for details. Costs are planning ranges, not live prices.</p>
+        </div>
+
+        <div class="explore-bar">
+          <div class="filters" id="filters" role="group" aria-label="Filter destinations">
+            <button type="button" class="filter-btn" data-filter="all" aria-pressed="true" data-i18n="filter_all">All</button>
+            <button type="button" class="filter-btn" data-filter="heritage" aria-pressed="false" data-i18n="filter_heritage">Heritage</button>
+            <button type="button" class="filter-btn" data-filter="temples" aria-pressed="false" data-i18n="filter_temples">Temples</button>
+            <button type="button" class="filter-btn" data-filter="nature" aria-pressed="false" data-i18n="filter_nature">Nature</button>
+            <button type="button" class="filter-btn" data-filter="coast" aria-pressed="false" data-i18n="filter_coast">Coast</button>
+          </div>
+          <div class="carousel-controls">
+            <button type="button" class="icon-btn" id="carousel-prev" data-i18n-aria="prev" aria-label="Previous">&#8592;</button>
+            <button type="button" class="icon-btn" id="carousel-next" data-i18n-aria="next" aria-label="Next">&#8594;</button>
+          </div>
+        </div>
+
+        <div class="carousel-track" id="carousel-track" tabindex="0" role="list" data-i18n-aria="carousel_label" aria-label="Destinations"></div>
+      </div>
+    </section>
+
+    <!-- ============ PLANNER ============ -->
+    <section class="section section-tint no-print" id="planner" aria-labelledby="planner-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="planner-title" data-i18n="plan_title">Build your trip</h2>
+          <p data-i18n="plan_sub">Everything is calculated on your device with a transparent rule-based engine.</p>
+        </div>
+
+        <form class="planner-form" id="trip-form" novalidate>
+          <div class="planner-grid">
+
+            <fieldset class="panel">
+              <legend data-i18n="g_basics">Trip basics</legend>
+
+              <div class="field">
+                <label class="field-label" for="f-start" data-i18n="f_start">Starting city</label>
+                <select id="f-start" aria-describedby="err-start"></select>
+                <p class="field-error" id="err-start" role="alert"></p>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label class="field-label" for="f-days" data-i18n="f_days">Number of days</label>
+                  <input id="f-days" type="number" min="1" max="14" step="1" value="4" inputmode="numeric" aria-describedby="err-days">
+                  <p class="field-error" id="err-days" role="alert"></p>
+                </div>
+                <div class="field">
+                  <label class="field-label" for="f-travellers" data-i18n="f_travellers">Travellers</label>
+                  <input id="f-travellers" type="number" min="1" max="20" step="1" value="2" inputmode="numeric" aria-describedby="err-travellers">
+                  <p class="field-error" id="err-travellers" role="alert"></p>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="field-label" for="f-date" data-i18n="f_date">Start date (optional)</label>
+                <input id="f-date" type="date" aria-describedby="err-date">
+                <p class="field-error" id="err-date" role="alert"></p>
+              </div>
+
+              <div class="field">
+                <label class="field-label" for="f-budget" data-i18n="f_budget">Total budget (₹)</label>
+                <input id="f-budget" type="number" min="2000" max="1000000" step="500" value="25000" inputmode="numeric" aria-describedby="err-budget">
+                <p class="field-error" id="err-budget" role="alert"></p>
+                <div class="budget-readout" aria-live="polite">
+                  <output id="budget-display" for="f-budget f-budget-range">₹25,000</output>
+                </div>
+                <input id="f-budget-range" class="range" type="range" min="5000" max="200000" step="1000" value="25000" data-i18n-aria="f_budget_slider" aria-label="Budget slider">
+              </div>
+
+              <div class="alloc" aria-labelledby="alloc-title">
+                <h3 id="alloc-title" data-i18n="alloc_title">Suggested split of your budget</h3>
+                <ul class="alloc-list" id="alloc-list"></ul>
+                <p class="hint" data-i18n="alloc_note">A planning guide that updates as you move the slider. It is not a quote.</p>
+              </div>
+            </fieldset>
+
+            <fieldset class="panel">
+              <legend data-i18n="g_prefs">Your preferences</legend>
+
+              <div class="field">
+                <span class="field-label" id="interest-label" data-i18n="f_interests">Interests</span>
+                <p class="hint" data-i18n="f_interests_hint">Pick at least one, or choose places below.</p>
+                <div class="chip-grid" id="interest-grid" role="group" aria-labelledby="interest-label"></div>
+                <p class="field-error" id="err-interests" role="alert"></p>
+              </div>
+
+              <div class="field">
+                <span class="field-label" id="pace-label" data-i18n="f_pace">Travel pace</span>
+                <div class="segmented" role="radiogroup" aria-labelledby="pace-label">
+                  <label><input type="radio" name="pace" value="relaxed"><span data-i18n="pace_relaxed">Relaxed</span></label>
+                  <label><input type="radio" name="pace" value="balanced" checked><span data-i18n="pace_balanced">Balanced</span></label>
+                  <label><input type="radio" name="pace" value="packed"><span data-i18n="pace_packed">Packed</span></label>
+                </div>
+              </div>
+
+              <details class="field dest-details">
+                <summary data-i18n="f_dest">Preferred destinations (optional)</summary>
+                <p class="hint" data-i18n="f_dest_hint">Leave empty to let the engine discover places for you.</p>
+                <div class="chip-grid" id="preferred-grid"></div>
+              </details>
+
+              <div class="field checks">
+                <label class="check"><input type="checkbox" id="f-access"><span data-i18n="f_access">I need easier access (fewer steps and long walks)</span></label>
+                <label class="check"><input type="checkbox" id="f-family"><span data-i18n="f_family">Family-friendly trip</span></label>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary btn-lg" type="submit" id="generate-btn" data-i18n="btn_generate">Create my plan</button>
+            <button class="btn btn-ghost" type="button" id="sample-btn" data-i18n="btn_sample">Try a sample trip</button>
+            <button class="btn btn-ghost" type="button" id="reset-btn" data-i18n="btn_reset">Reset trip</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ RESULTS ============ -->
+    <section class="section results-section" id="results" aria-labelledby="results-title" tabindex="-1">
+      <div class="container">
+        <h2 class="visually-hidden" id="results-title" data-i18n="r_title">Your Karnataka plan</h2>
+        <div id="results-content" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- ============ CULTURE ============ -->
+    <section class="section no-print" id="culture" aria-labelledby="culture-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="culture-title" data-i18n="cul_title">Taste, heritage and language</h2>
+          <p data-i18n="cul_sub">Kannada is not an add-on here. It is how the trip is told.</p>
+        </div>
+
+        <h3 class="sub-title" data-i18n="cul_food">Local food to look for</h3>
+        <div class="card-grid" id="food-grid"></div>
+
+        <h3 class="sub-title" data-i18n="cul_heritage">Dynasties behind the monuments</h3>
+        <div class="card-grid" id="dynasty-grid"></div>
+
+        <h3 class="sub-title" data-i18n="cul_phrases">Useful Kannada phrases</h3>
+        <div class="phrase-grid" id="phrase-grid"></div>
+
+        <h3 class="sub-title" data-i18n="cul_resp">Responsible tourism</h3>
+        <ul class="resp-list" id="resp-list"></ul>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section section-dark no-print" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="about-title" data-i18n="ab_title">A transparent engine you can explain</h2>
+          <p data-i18n="ab_sub">No hidden AI and no invented data. Here is exactly what happens when you press the button.</p>
+        </div>
+
+        <ol class="steps">
+          <li><h3 data-i18n="s1_t">Score</h3><p data-i18n="s1_d"></p></li>
+          <li><h3 data-i18n="s2_t">Choose</h3><p data-i18n="s2_d"></p></li>
+          <li><h3 data-i18n="s3_t">Route</h3><p data-i18n="s3_d"></p></li>
+          <li><h3 data-i18n="s4_t">Cost</h3><p data-i18n="s4_d"></p></li>
+          <li><h3 data-i18n="s5_t">Be honest</h3><p data-i18n="s5_d"></p></li>
+        </ol>
+
+        <div class="about-cols">
+          <div>
+            <h3 data-i18n="ab_limits">Data limitations</h3>
+            <ul class="plain-list" id="limits-list"></ul>
+          </div>
+          <div>
+            <h3 data-i18n="ab_ready">Ready for real AI later</h3>
+            <p data-i18n="ab_ready_text"></p>
+            <h3 data-i18n="ab_credits">Credits</h3>
+            <p data-i18n="ab_credits_text"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer no-print">
+    <div class="container footer-inner">
+      <p class="footer-brand">NammaTrip AI</p>
+      <p data-i18n="ft_tag">ಕನ್ನಡದಲ್ಲಿ ನಿಮ್ಮ ಕರ್ನಾಟಕ ಪ್ರವಾಸದ ಸಂಗಾತಿ</p>
+      <p class="footer-small" data-i18n="ft_text">Code. Create. Celebrate Kannada.</p>
+      <p class="footer-small footer-credit" data-i18n="ph_note"></p>
+    </div>
+  </footer>
+
+  <!-- Destination detail panel -->
+  <dialog class="dest-dialog no-print" id="destination-dialog" aria-labelledby="dialog-title">
+    <div id="dialog-content"></div>
+  </dialog>
+
+  <div class="toast-region no-print" id="toast-region" aria-live="polite"></div>
+  <p class="visually-hidden" id="sr-status" role="status"></p>
+
+  <script src="script.js"></script>
+</body>
+</html>
